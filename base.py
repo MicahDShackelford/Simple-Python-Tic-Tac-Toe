@@ -12,7 +12,9 @@ def playGame():
     # Non local vars
     solved = False
     player = 'x'
-    board = ['_','_','_','_','_','_','_','_','_']
+    board = ['_','_','_',
+             '_','_','_',
+             '_','_','_']
     
     def drawBoard():
         print(f'Current Board: \n {board[0]} # {board[1]} # {board[2]} \n###########\n {board[3]} # {board[4]} # {board[5]} \n###########\n {board[6]} # {board[7]} # {board[8]} ')
@@ -23,10 +25,13 @@ def playGame():
             Input: None
             Output: None ( Modifies nonlocal variables )
         '''
+        
+        nonlocal solved, player
+        
         def checkRow(i):
-            return board[i-1] == board[i] == board[i+1]
-        def checkCol():
-            pass
+            return board[i] != '_' and board[i-1] == board[i] == board[i+1]
+        def checkCol(i):
+            return board[i] != '_' and board[i-3] == board[i] == board[i+3]
         def checkDiagLR():
             pass
         def checkDiagRL():
@@ -34,9 +39,16 @@ def playGame():
         # row = [1,4,7]
         for i, x in enumerate(board[1::3]):
             if checkRow(i):
-                print('Winner')
+                solved = True
+                print(f'{player.upper()} wins!')
+                break
+        for i, x in enumerate(board[3:6]):
+            if checkCol(i+3):
+                solved = True
+                print(f'{player.upper()} wins!')
+                break
+            
         drawBoard()
-    
     def togglePiece(position):
         '''
             Purpose: Toggles a board piece (Also runs a win check)
