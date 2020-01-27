@@ -32,10 +32,8 @@ def playGame():
             return board[i] != '_' and board[i-1] == board[i] == board[i+1]
         def checkCol(i):
             return board[i] != '_' and board[i-3] == board[i] == board[i+3]
-        def checkDiagLR():
-            pass
-        def checkDiagRL():
-            pass
+        def checkDiag():
+            return board[4] != '_' and (board[0] == board[4] == board[8] or board[2] == board[4] == board[6])
         # row = [1,4,7]
         for i, x in enumerate(board[1::3]):
             if checkRow(i):
@@ -47,6 +45,9 @@ def playGame():
                 solved = True
                 print(f'{player.upper()} wins!')
                 break
+        if checkDiag():
+            solved = True
+            print(f'{player.upper()} wins!')
             
         drawBoard()
     def togglePiece(position):
