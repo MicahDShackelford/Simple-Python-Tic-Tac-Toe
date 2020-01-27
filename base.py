@@ -14,16 +14,39 @@ def playGame():
     player = 'x'
     board = ['_','_','_','_','_','_','_','_','_']
     
+    def drawBoard():
+        print(f'Current Board: \n {board[0]} # {board[1]} # {board[2]} \n###########\n {board[3]} # {board[4]} # {board[5]} \n###########\n {board[6]} # {board[7]} # {board[8]} ')
+        
+    def checkWin():
+        '''
+            Purpose: Check to see if either X or Y won the game
+            Input: None
+            Output: None ( Modifies nonlocal variables )
+        '''
+        def checkRow(i):
+            return board[i-1] == board[i] == board[i+1]
+        def checkCol():
+            pass
+        def checkDiagLR():
+            pass
+        def checkDiagRL():
+            pass
+        # row = [1,4,7]
+        for i, x in enumerate(board[1::3]):
+            if checkRow(i):
+                print('Winner')
+        drawBoard()
+    
     def togglePiece(position):
         '''
             Purpose: Toggles a board piece (Also runs a win check)
             Input: Takes in the position where the board piece is being added
             Output: None ( Modifies nonlocal variables )
         '''
-        # Check score
         nonlocal player
         if board[position] == '_':
             board[position] = player
+            checkWin()
             if player == 'x':
                 player = 'y'
             else:
@@ -33,9 +56,9 @@ def playGame():
     # Introduction
     print('Welcome to my basic terminal Tic-Tac-Toe game!\nTo play you will be asked to enter a number that will represent the box you would like to fill')
     print('Example:\n 1 # 2 # 3 \n###########\n 4 # 5 # 6 \n###########\n 7 # 8 # 9 \nUser Enters: 3 \nNew Board: \n   #   # X \n###########\n   #   #   \n###########\n   #   #   \n-------------------------------')
+    drawBoard()
     # Continues running the game till a win is achieved
     while not solved:
-        print(f'Current Board: \n {board[0]} # {board[1]} # {board[2]} \n###########\n {board[3]} # {board[4]} # {board[5]} \n###########\n {board[6]} # {board[7]} # {board[8]} ')
         try:
             move = int(input(f'Enter your move ({player.upper()}): '))
         except:
